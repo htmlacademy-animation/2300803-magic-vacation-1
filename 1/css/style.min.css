@@ -1499,44 +1499,18 @@ img {
   }
 }
 
-.screen--game .form {
-  justify-content: flex-end;
-}
 .screen--game .form__field {
-  transition-property: width, padding;
-  transition-duration: 0.4s;
-  transition-timing-function: linear;
-  width: 0;
-  padding: 0;
+  transform-origin: right;
+  transition: transform 0.4s ease-out;
+  transform: scaleX(0);
 }
 .screen--game.active .form__field {
-  padding: 0 5.6rem;
-  width: calc(100% - 210px);
-}
-@media (min-width: 2000px) {
-  .screen--game.active .form__field {
-    padding: 0 56px;
-    width: calc(100% - 210px);
-  }
-}
-@media (orientation: portrait) {
-  .screen--game.active .form__field {
-    padding: 0 2.5rem;
-    width: calc(100% - 5rem);
-  }
-}
-@media (max-width: 1024px) and (orientation: landscape) {
-  .screen--game.active .form__field {
-    width: calc(100% - 9rem);
-  }
-}
-@media (max-width: 768px) and (orientation: landscape) {
-  .screen--game.active .form__field {
-    padding: 0 2.5rem;
-    width: calc(100% - 5rem);
-  }
+  transform: scaleX(1);
 }
 
+.form__button {
+  flex-grow: 1;
+}
 @media (orientation: portrait) {
   .form__button {
     position: relative;
@@ -1860,6 +1834,11 @@ img {
   text-transform: uppercase;
   font-size: 2.4rem;
   line-height: 1.27;
+  opacity: 0;
+  transform: translateY(10px);
+  transition-property: transform, opacity;
+  transition-duration: 0.5s;
+  transition-timing-function: ease-out;
 }
 @media (min-width: 2000px) {
   .intro__message {
@@ -1885,11 +1864,6 @@ img {
 }
 .intro__message p {
   margin: 0;
-  opacity: 0;
-  transform: translateY(10px);
-  transition-property: transform, opacity;
-  transition-duration: 0.5s;
-  transition-timing-function: ease-out;
 }
 @media (min-width: 2000px) {
   .intro__message svg {
@@ -1910,7 +1884,7 @@ img {
   }
 }
 
-.screen--intro.active .intro__message p {
+.screen--intro.active .intro__message {
   opacity: 1;
   transform: translateY(0);
 }
@@ -2227,31 +2201,28 @@ img {
   content: "";
   position: absolute;
   bottom: 0;
-  width: 0;
   height: 2px;
   background-color: #ffffff;
-  right: 0;
-  transition-property: background-color, width;
+  left: 0;
+  width: 100%;
+  transform: scaleX(0);
+  transition-property: background-color, transform;
   transition-duration: 150ms;
   transition-timing-function: linear;
+  transform-origin: right;
 }
 @media (max-width: 1024px) and (orientation: portrait) {
   .page-header__menu a::after {
-    left: 0;
-    right: 0;
     background-color: #5f458c;
   }
 }
 @media (max-width: 768px) and (orientation: landscape) {
   .page-header__menu a::after {
-    left: 0;
-    right: 0;
     background-color: #5f458c;
   }
 }
 .page-header__menu a.active::after {
-  left: 0;
-  width: 100%;
+  transform: scaleX(1);
 }
 .page-header__menu a:hover, .page-header__menu a:focus {
   color: #a67ee5;
@@ -2260,8 +2231,8 @@ img {
 .page-header__menu a:hover::after, .page-header__menu a:focus::after {
   opacity: 1;
   background-color: #a67ee5;
-  width: 100%;
-  left: 0;
+  transform: scaleX(1);
+  transform-origin: left;
 }
 
 .page-header__social {
@@ -3756,15 +3727,15 @@ img {
   transform: translateY(0);
 }
 .swiper-slide-active .slider__item-text {
-  transition-delay: 400ms;
   transform: translateX(0);
   opacity: 1;
   transition-property: opacity, transform;
   transition-duration: 500ms;
   transition-timing-function: ease-out;
+  transition-delay: 400ms;
 }
 
-@media (min-width: 768px) and (orientation: portrait) {
+@media (min-width: 768px) and (orientation: landscape) {
   .swiper-slide-next .slider__item-text {
     transition-delay: 600ms;
     transform: translateX(0);
@@ -3970,6 +3941,7 @@ img {
   height: 4rem;
   color: #5f458c;
   border-radius: 50%;
+  transition: color 0.15s ease-in-out;
 }
 .social-block__toggler:focus {
   outline: none;
@@ -3995,6 +3967,7 @@ img {
   border-radius: 50%;
   background-color: #ffffff;
   border: 2px solid #ffffff;
+  transition: transform 0.15s ease-in-out;
   z-index: -1;
 }
 .social-block__toggler svg {
@@ -4010,8 +3983,7 @@ img {
   color: #a67ee5;
 }
 .social-block__toggler:hover::before, .social-block--active .social-block__toggler::before {
-  width: 112.5%;
-  height: 112.5%;
+  transform: scale(1.125) translate(-43.75%, -43.75%);
 }
 .social-block__toggler:focus {
   color: #a67ee5;
