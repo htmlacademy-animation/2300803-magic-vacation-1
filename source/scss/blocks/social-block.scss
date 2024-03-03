@@ -5,11 +5,29 @@
     .social-block__list {
       opacity: 1;
       pointer-events: auto;
+
+      li {
+        $transitionDuration: 0.15s;
+
+        opacity: 1;
+        transform: translateY(0);
+        transition-property: transform, opacity;
+        transition-duration: $transitionDuration;
+        transition-timing-function: ease-out;
+
+        @for $i from 2 through 3 {
+          &:nth-child(#{$i}) {
+            transition-delay: $transitionDuration * ($i - 1);
+          }
+        }
+      }
     }
   }
 }
 
 .social-block__toggler {
+  $transitionDuration: 0.15s;
+
   @include btn-reset;
   position: relative;
   display: block;
@@ -17,6 +35,7 @@
   height: 4rem;
   color: $c-dark;
   border-radius: 50%;
+  transition: color $transitionDuration ease-in-out;
 
   @media (max-width: $tablet) and (orientation: portrait) {
     display: none;
@@ -34,6 +53,7 @@
     border-radius: 50%;
     background-color: $c-light;
     border: 2px solid $c-light;
+    transition: transform $transitionDuration ease-in-out;
     z-index: -1;
   }
 
@@ -47,10 +67,10 @@
   &:hover,
   .social-block--active & {
     color: $c-purple;
-
+    
     &::before {
-      width: 112.5%;
-      height: 112.5%;
+      $scale: 0.125;
+      transform: scale(1 + $scale) translate(-(50% * (1 - $scale)), -(50% * (1 - $scale)));
     }
   }
 
@@ -65,6 +85,22 @@
     & + .social-block__list {
       opacity: 1;
       pointer-events: auto;
+
+      li {
+        $transitionDuration: 0.2s;
+
+        opacity: 1;
+        transform: translateY(0);
+        transition-property: transform, opacity;
+        transition-duration: $transitionDuration;
+        transition-timing-function: ease-out;
+
+        @for $i from 2 through 3 {
+          &:nth-child(#{$i}) {
+            transition-delay: $transitionDuration * ($i - 1);
+          }
+        }
+      }
     }
   }
 
@@ -102,6 +138,22 @@
     margin-top: 0;
     opacity: 1;
     pointer-events: auto;
+
+    li {
+      $transitionDuration: 0.2s;
+
+      opacity: 1;
+      transform: translateY(0);
+      transition-property: transform, opacity;
+      transition-duration: $transitionDuration;
+      transition-timing-function: ease-out;
+
+      @for $i from 2 through 3 {
+        &:nth-child(#{$i}) {
+          transition-delay: $transitionDuration * ($i - 1);
+        }
+      }
+    }
   }
 
   @media (max-width: $mobile) and (orientation: landscape) {
@@ -112,6 +164,22 @@
     margin-top: 0;
     opacity: 1;
     pointer-events: auto;
+
+    li {
+      $transitionDuration: 0.2s;
+
+      opacity: 1;
+      transform: translateY(0);
+      transition-property: transform, opacity;
+      transition-duration: $transitionDuration;
+      transition-timing-function: ease-out;
+
+      @for $i from 2 through 3 {
+        &:nth-child(#{$i}) {
+          transition-delay: $transitionDuration * ($i - 1);
+        }
+      }
+    }
   }
 
   &::before {
@@ -130,11 +198,43 @@
   &:hover {
     opacity: 1;
     pointer-events: auto;
+
+    li {
+      $transitionDuration: 0.2s;
+
+      opacity: 1;
+      transform: translateY(0);
+      transition-property: transform, opacity;
+      transition-duration: $transitionDuration;
+      transition-timing-function: ease-out;
+
+      @for $i from 2 through 3 {
+        &:nth-child(#{$i}) {
+          transition-delay: $transitionDuration * ($i - 1);
+        }
+      }
+    }
   }
 
   &:focus-within {
     opacity: 1;
     pointer-events: auto;
+
+    li {
+      $transitionDuration: 0.2s;
+
+      opacity: 1;
+      transform: translateY(0);
+      transition-property: transform, opacity;
+      transition-duration: $transitionDuration;
+      transition-timing-function: ease-out;
+
+      @for $i from 2 through 3 {
+        &:nth-child(#{$i}) {
+          transition-delay: $transitionDuration * ($i - 1);
+        }
+      }
+    }
   }
 
   .social-block--active & {
@@ -145,6 +245,8 @@
   li {
     flex: none;
     margin-bottom: 0.5rem;
+    opacity: 0;
+    transform: translateY(10px);
 
     @media (min-width: $stop-scaling) {
       margin-bottom: 5px;
