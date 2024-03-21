@@ -78,6 +78,18 @@
   }
 }
 
+.screen--game {
+  .form__field {
+    transform-origin: right;
+    transition: transform 0.4s ease-out;
+    transform: scaleX(0);
+  }
+
+  &.active .form__field {
+    transform: scaleX(1);
+  }
+}
+
 .form__button {
   flex-grow: 1;
 
