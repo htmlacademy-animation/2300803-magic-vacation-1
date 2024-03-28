@@ -47,13 +47,14 @@
 
   &::before {
     @include center;
+    transform: translate(-50%, -50%) scale(0);
     content: "";
     width: 100%;
     height: 100%;
     border-radius: 50%;
     background-color: $c-light;
     border: 2px solid $c-light;
-    transition: transform $transitionDuration ease-in-out;
+    transition: transform 0.4s cubic-bezier(0.8, 1.5, 1, 1);
     z-index: -1;
   }
 
@@ -62,6 +63,12 @@
     display: block;
     width: 2.3rem;
     height: 2.2rem;
+  }
+}
+
+body.loaded .social-block__toggler {
+  &::before {
+    transform: translate(-50%, -50%) scale(1);
   }
 
   &:hover,
