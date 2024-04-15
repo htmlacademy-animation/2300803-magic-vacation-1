@@ -29,6 +29,38 @@
   }
 }
 
+.form__wrapper-field {
+  flex: none;
+  margin-right: 3rem;
+  height: 6rem;
+  width: calc(100% - 21rem);
+  border-radius: 3rem;
+  overflow-x: hidden;
+
+  @media (min-width: $stop-scaling) {
+    margin-right: 30px;
+    height: 60px;
+    width: calc(100% - 210px);
+    border-radius: 30px;
+  }
+
+  @media (orientation: portrait) {
+    margin-right: 1rem;
+    width: calc(100% - 5rem);
+    height: 4rem;
+  }
+
+  @media (max-width: $tablet) and (orientation: landscape) {
+    width: calc(100% - 9rem);
+  }
+
+  @media (max-width: $mobile) and (orientation: landscape) {
+    margin-right: 1rem;
+    width: calc(100% - 5rem);
+    height: 4rem;
+  }
+}
+
 .form__field {
   flex: none;
   margin-right: 3rem;
@@ -80,13 +112,17 @@
 
 .screen--game {
   .form__field {
-    transform-origin: right;
     transition: transform 0.4s ease-out;
-    transform: scaleX(0);
+    transform: translateX(calc(100% - 3rem * 2));
+    width: 100%;
+  
+    @media (min-width: $stop-scaling) {
+      transform: translateX(calc(100% - 30px * 2));
+    }
   }
 
   &.active .form__field {
-    transform: scaleX(1);
+    transform: translateX(0);
   }
 }
 
@@ -138,7 +174,7 @@
 }
 
 .form--result {
-  .form__field {
+  .form__wrapper-field {
     width: calc(100% - 31rem);
 
     @media (min-width: $stop-scaling) {
