@@ -8,10 +8,20 @@ export default class FullPageScroll {
 
     this.screenElements = document.querySelectorAll(`.screen:not(.screen--result)`);
     this.menuElements = document.querySelectorAll(`.page-header__menu .js-menu-link`);
+    this.transitionScreenElement = document.querySelector(`.transition-screen`);
 
     this.activeScreen = 0;
     this.onScrollHandler = this.onScroll.bind(this);
     this.onUrlHashChengedHandler = this.onUrlHashChanged.bind(this);
+
+    const transitionScreenHashes = [[`story`, `prizes`]];
+    this.transitionScreens = transitionScreenHashes.map((hashes) => {
+      const fromIdx = 0;
+      const toIdx = 1;
+      const fromScreen = Array.from(this.screenElements).findIndex((screen) => hashes[fromIdx] === screen.id);
+      const toScreen = Array.from(this.screenElements).findIndex((screen) => hashes[toIdx] === screen.id);
+      return [fromScreen, toScreen];
+    });
   }
 
   init() {
@@ -41,17 +51,28 @@ export default class FullPageScroll {
 
   onUrlHashChanged() {
     const newIndex = Array.from(this.screenElements).findIndex((screen) => location.hash.slice(1) === screen.id);
+    const prevActiveScreen = this.activeScreen;
     this.activeScreen = (newIndex < 0) ? 0 : newIndex;
-    this.changePageDisplay();
+    this.changePageDisplay(prevActiveScreen);
   }
 
-  changePageDisplay() {
-    this.changeVisibilityDisplay();
+  async changePageDisplay(prevActiveScreen) {
+    await this.changeVisibilityDisplay(prevActiveScreen);
     this.changeActiveMenuItem();
     this.emitChangeDisplayEvent();
   }
 
-  changeVisibilityDisplay() {
+  async changeVisibilityDisplay(prevActiveScreen) {
+    const hasTransitionScreens = this.transitionScreens.some(([fromScreen, toScreen]) => prevActiveScreen === fromScreen && this.activeScreen === toScreen);
+    if (hasTransitionScreens) {
+      await new Promise((resolve) => {
+        this.transitionScreenElement.classList.add(`transition`);
+        setTimeout(() => {
+          this.transitionScreenElement.classList.remove(`transition`);
+          resolve(true);
+        }, 300);
+      });
+    }
     this.screenElements.forEach((screen) => {
       screen.classList.add(`screen--hidden`);
       screen.classList.remove(`active`);

@@ -14,7 +14,7 @@
     min-height: calc(var(--vh, 1vh) * 100);
   }
 
-  @media (max-width: $tablet - 1) and (orientation: landscape) {
+  @media (max-width: ($tablet - 1)) and (orientation: landscape) {
     height: 100vh;
   }
 }
@@ -359,4 +359,20 @@ body.loaded .screen__footer {
 
 .screen--rules {
   background-color: $c-dark;
+}
+
+.transition-screen {
+  background-color: $c-dark;
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  transform: translateY(100%);
+
+  &.transition {
+    transform: translateY(0);
+    transition: transform 300ms cubic-bezier(0.1, 0.8, 1, 1);
+  }
 }
